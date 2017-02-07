@@ -33,7 +33,7 @@ mongoClient.connect(url, function(err, db) {
 	console.log("Conncected correctly to server");
 });
 
-app.get('/', function(request, response){
+app.post('/', function(request, response){
   console.log("request.params : " + request.params)
   // schema.findUser(request.)
   response.send("GET called")
