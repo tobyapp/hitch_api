@@ -39,8 +39,8 @@ var toby = new User({userName: 'Toby Applegate',
 console.log('toby : ' + toby);
 
 toby.save(function (error, toby) {
-  if (error) return console.error(err);
+  if (error) return console.error(error);
   else {
     console.log("saved to mongoDB successfully!")
   }
-)};
+});
