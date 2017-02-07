@@ -34,9 +34,22 @@ mongoClient.connect(url, function(err, db) {
 });
 
 app.post('/', function(request, response){
-  console.log("request.params : " + request.params)
+  console.log("request : " + request)
+  console.log("url : " + request.url)
+  console.log("request.headers : " + request.headers)
+  console.log("request.params : " + request.params);
   // schema.findUser(request.)
-  response.send("GET called")
+
+  var body = [];
+  request.on('data', function(chunk) {
+    body.push(chunk);
+  }).on('end', function() {
+    body = Buffer.concat(body).toString();
+    console.log("body : " + body);
+  });
+
+  console.log("POST called woo!");
+  response.send("POST called woo!");
 
 });
 
