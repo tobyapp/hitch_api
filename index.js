@@ -39,9 +39,16 @@ app.get('/', function(request, response) {
       response.status("400").send(error);
     } else {
       console.log("User found successfully!!");
-      response.setHeader('Content-Type', 'application/json');
+
+      response.writeHead(200, {
+        'Content-Type' : 'application/json'
+      });
       response.write(JSON.stringify(users));
-      response.status("200").send("User found successfully!!");
+      res.end('User found successfully!!');
+
+      //response.setHeader('Content-Type', 'application/json');
+
+      //response.status("200").send("User found successfully!!");
 
     }
   })
