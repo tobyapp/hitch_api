@@ -36,6 +36,6 @@ mongoClient.connect(url, function(err, db) {
 app.get('/', function(request, response){
   console.log("request.params : " + request.params)
   // Schema.findUser(request.)
-  res.send("get called")
+  res.send("GET called")
 
 });
