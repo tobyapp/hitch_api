@@ -43,19 +43,21 @@ app.post('/createUser', function(request, response){
   console.log("url : " + request.url)
   console.log("request.headers : " + request.headers)
   console.log("request.params : " + request.params);
-  console.log('title : ' + request.body.title);
+  console.log('body : ' + request.body);
+  console.log('userName : ' + request.body.userName);
   console.log("");
 
 
   schema.createUser(request.body, function(error, user) {
     if(error) {
-      response.status("400").send("error");
+      response.status("400").send(error);
+      console.log("error in creating user : " + error);
     } else {
-      response.status("200").send("User created successfully!!")
-      console.log("User created successfully!!")
+      response.status("200").send("User created successfully!!");
+      console.log("User created successfully!!");
       console.log(user);
     }
-  })
+  });
   // schema.findUser(request.)
 
   // var body = [];
