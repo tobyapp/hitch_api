@@ -41,7 +41,7 @@ function createUser(userDetails, callback) {
                     });
 
   saveUser(user, function(error, user) {
-    console.console.log("in saveUser fuction call from createUser");
+    console.log("in saveUser fuction call from createUser");
     if(error) {
       callback(error);
     } else {
