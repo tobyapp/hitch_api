@@ -13,7 +13,7 @@ var userSchema = mongoose.Schema({
   userEducation: String,
   userGender: String,
   userEmailAddress: String,
-  _id: {type: Schema.ObjectId, auto: true},
+  _id: ObjectId,
   updatedAt: { type: Date, default: Date.now},
 });
 
@@ -34,6 +34,7 @@ var toby = new User({userName: 'Toby Applegate',
                     userEducation: 'University Of Portsmouth',
                     userGender: 'Male',
                     userEmailAddress: 'up661724@myport.ac.uk',
+                    _id: { type: Schema.ObjectID, auto: true},
                   });
 
 console.log('toby : ' + toby);
