@@ -15,6 +15,10 @@ app.set('port', process.env.PORT || 3000);
 // app.set('view engine', 'jade');
 
 var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ //parse test as URL encoded data
+    extended: true
+}));
+
 app.use(bodyParser.json());
 
 var mongoHost = 'localHost';
@@ -47,6 +51,8 @@ app.post('/', function(request, response){
     body = Buffer.concat(body).toString();
     console.log("body : " + body);
   });
+
+  console.log('title : ' + request.body.title)
 
   console.log("POST called woo!");
   response.send("POST called woo!");
