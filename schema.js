@@ -21,7 +21,6 @@ var userSchema = mongoose.Schema({
 var User = mongoose.model('User', userSchema) ;
 
 function createUser(userDetails, callback) {
-  console.log("createUser");
   const user = new User({userName: userDetails.userName,
                       userAge: userDetails.userAge,
                       userEducation: userDetails.userEducation,
@@ -60,7 +59,6 @@ function findUser(callback) {
       callback(error);
     }
     else {
-      console.log("Users found!");
       callback(null, users);
     }
   });
