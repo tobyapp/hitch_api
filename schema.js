@@ -34,7 +34,13 @@ var toby = new User({userName: 'Toby Applegate',
                     userEducation: 'University Of Portsmouth',
                     userGender: 'Male',
                     userEmailAddress: 'up661724@myport.ac.uk',
-                    _id: { type: Schema.ObjectID, auto: true},
                   });
 
 console.log('toby : ' + toby);
+
+toby.save(function (error, toby) {
+  if (error) return console.error(err);
+  else {
+    console.log("saved to mongoDB successfully!")
+  }
+)};
