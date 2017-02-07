@@ -1,13 +1,12 @@
 #!/usr/bin/env nodejs
 
 var mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/test')
-//
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//   console.log("connected to database successfully!");
-// });
+
+var db = mongoose.connect('mongodb://localhost/users');
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("connected to database successfully!");
+});
 
 var userSchema = mongoose.Schema({
   userName: String,

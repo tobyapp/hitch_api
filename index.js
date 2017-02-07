@@ -5,8 +5,8 @@ const express = require('express');
 const path = require('path');
 const assert = require('assert');
 
-const MongoClient = require('mongodb').MongoClient;
-const Server = require('mongodb').Server;
+// const MongoClient = require('mongodb').MongoClient;
+// const Server = require('mongodb').Server;
 const schema = require('./schema');
 
 var app = express();
@@ -21,21 +21,21 @@ app.use(bodyParser.urlencoded({ //parse test as URL encoded data
 
 app.use(bodyParser.json());
 
-var mongoHost = 'localHost';
-var database = 'test';
-var mongoPort = 27017;
-
-var mongoClient = new MongoClient(new Server(mongoHost, mongoPort)); //B
-var url = 'mongodb://' + mongoHost + ':' + mongoPort
-
-mongoClient.connect(url, function(err, db) {
-	if (err) {
-		(console.error("Cannot connect for some reason"));
-		process.exit(1);
-	}
-	assert.equal(null, err);
-	console.log("Conncected correctly to server");
-});
+// var mongoHost = 'localHost';
+// var database = 'test';
+// var mongoPort = 27017;
+//
+// var mongoClient = new MongoClient(new Server(mongoHost, mongoPort)); //B
+// var url = 'mongodb://' + mongoHost + ':' + mongoPort
+//
+// mongoClient.connect(url, function(err, db) {
+// 	if (err) {
+// 		(console.error("Cannot connect for some reason"));
+// 		process.exit(1);
+// 	}
+// 	assert.equal(null, err);
+// 	console.log("Conncected correctly to server");
+// });
 
 app.post('/createUser', function(request, response){
   console.log("");
