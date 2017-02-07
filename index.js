@@ -32,6 +32,20 @@ app.post('/createUser', function(request, response){
 
 });
 
+app.get('/', function(request, response) {
+  schema.findUser(function(error, users) {
+    if(error) {
+      console.log("Users not found : " + error);
+      response.status("400").send(error);
+    } else {
+      console.log("User found successfully!!");
+      response.status("200").send("User found successfully!!");
+      response.body = users
+    }
+  })
+
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

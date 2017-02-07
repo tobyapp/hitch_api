@@ -53,11 +53,15 @@ function saveUser(user, callback) {
   });
 }
 
-function findUser(user) {
+function findUser(callback) {
   User.find(function (error, users) {
-    if(error) return console.error(error);
+    if(error) {
+      console.log("Users not found : " + error);
+      callback(error);
+    }
     else {
-      return users;
+      console.log("Users found!");
+      callback(null, users);
     }
   });
 };
