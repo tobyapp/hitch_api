@@ -53,9 +53,12 @@ function createUser(userDetails, callback) {
 }
 
 function saveUser(user, callback) {
-  console.log("saveUser");
+  console.log("saveUser : " + callback);
   user.save(function (error, user) {
-    if(error) callback(error);
+    if(error) {
+      console.log("error with saving : " + error);
+      callback(error);
+    }
     else {
       callback(null, user);
       console.log("user saved successfully!!!");
