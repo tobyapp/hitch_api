@@ -37,22 +37,36 @@ mongoClient.connect(url, function(err, db) {
 	console.log("Conncected correctly to server");
 });
 
-app.post('/', function(request, response){
+app.post('/createUser', function(request, response){
+  console.log("");
   console.log("request : " + request)
   console.log("url : " + request.url)
   console.log("request.headers : " + request.headers)
   console.log("request.params : " + request.params);
+  console.log('title : ' + request.body.title);
+  console.log("");
+
+
+  schema.createUser(request.body, function(error, user) {
+    if(error) {
+      response.status("400").send("error");
+    } else {
+      response.status("200").send("User created successfully!!")
+      console.log("User created successfully!!")
+      console.log(user);
+    }
+  })
   // schema.findUser(request.)
 
-  var body = [];
-  request.on('data', function(chunk) {
-    body.push(chunk);
-  }).on('end', function() {
-    body = Buffer.concat(body).toString();
-    console.log("body : " + body);
-  });
+  // var body = [];
+  // request.on('data', function(chunk) {
+  //   body.push(chunk);
+  // }).on('end', function() {
+  //   body = Buffer.concat(body).toString();
+  //   console.log("body : " + body);
+  // });
 
-  console.log('title : ' + request.body.title)
+
 
   console.log("POST called woo!");
   response.send("POST called woo!");

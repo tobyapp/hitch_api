@@ -20,16 +20,9 @@ var userSchema = mongoose.Schema({
 
 var User = mongoose.model('User', userSchema) ;
 
-console.log("test : " + User);
+// console.log("test : " + User);
 
-var toby = new User({userName: 'Toby Applegate',
-                    userAge: 24,
-                    userEducation: 'University Of Portsmouth',
-                    userGender: 'Male',
-                    userEmailAddress: 'up661724@myport.ac.uk',
-                  });
-
-console.log('toby : ' + toby);
+// console.log('toby : ' + toby);
 
 toby.save(function (error, toby) {
   if (error) return console.error(error);
@@ -37,6 +30,35 @@ toby.save(function (error, toby) {
     console.log("saved to mongoDB successfully!")
   }
 });
+
+function createUser(userDetails, callback) {
+  const user = new User({userName: userDetails.userName,
+                      userAge: userDetails.userAge,
+                      userEducation: userDetails.userEducation,
+                      userGender: userDetails.userGender,
+                      userEmailAddress: userDetails.userEmailAddress,
+                    });
+
+  saveUser(user, function(error, user) {
+    if(error) {
+      callback(error);
+    } else {
+      callback(null, user);
+    }
+
+  });
+
+}
+
+function saveUser(user, callback) {
+  user.save(function (error, user) {
+    if(error) callback(error);
+    else {
+      callback(null, user);
+      console.log("user saved successfully!!!");
+    }
+  });
+}
 
 function findUser(user) {
   User.find(function (error, users) {
@@ -48,3 +70,4 @@ function findUser(user) {
 };
 
 exports.fundUser = findUser;
+exports.createUser = createUser;
