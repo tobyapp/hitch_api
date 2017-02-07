@@ -13,7 +13,6 @@ var userSchema = mongoose.Schema({
   userEducation: String,
   userGender: String,
   userEmailAddress: String,
-  _id: ObjectId,
   updatedAt: { type: Date, default: Date.now},
 });
 
