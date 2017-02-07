@@ -7,7 +7,7 @@ db.once('open', function() {
   console.log("connected to database successfully!");
 });
 
-var userSchema = mongoose.schema({
+var userSchema = mongoose.Schema({
   userName: String,
   userAge: Number,
   userEducation: String,
