@@ -20,17 +20,6 @@ var userSchema = mongoose.Schema({
 
 var User = mongoose.model('User', userSchema) ;
 
-// console.log("test : " + User);
-
-// console.log('toby : ' + toby);
-
-// toby.save(function (error, toby) {
-//   if (error) return console.error(error);
-//   else {
-//     console.log("saved to mongoDB successfully!")
-//   }
-// });
-
 function createUser(userDetails, callback) {
   console.log("createUser");
   const user = new User({userName: userDetails.userName,
@@ -41,7 +30,6 @@ function createUser(userDetails, callback) {
                     });
 
   saveUser(user, function(error, user) {
-    console.log("in saveUser fuction call from createUser");
     if(error) {
       callback(error);
     } else {
@@ -53,14 +41,13 @@ function createUser(userDetails, callback) {
 }
 
 function saveUser(user, callback) {
-  console.log("saveUser");
   user.save(function (error, user) {
     if(error) {
       console.log("error with saving : " + error);
       callback(error);
     }
     else {
-      console.log("user saved successfully!!!");
+      console.log("User saved successfully!!");
       callback(null, user);
     }
   });
