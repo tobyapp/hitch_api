@@ -40,15 +40,10 @@ app.get('/', function(request, response) {
     } else {
       console.log("User found successfully!!");
 
-      response.writeHead(200, {
-        'Content-Type' : 'application/json'
-      });
-      response.write(JSON.stringify(users));
-      res.end('User found successfully!!');
+response.write(JSON.stringify(users));
+      response.setHeader('Content-Type', 'application/json');
 
-      //response.setHeader('Content-Type', 'application/json');
-
-      //response.status("200").send("User found successfully!!");
+      response.status("200"); //.send("User found successfully!!")
 
     }
   })
