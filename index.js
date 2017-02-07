@@ -40,7 +40,8 @@ app.get('/', function(request, response) {
     } else {
       console.log("User found successfully!!");
       response.status("200").send("User found successfully!!");
-      response.body = users
+      response.setHeader('Content-Type', 'application/json');
+      response.json = users;
     }
   })
 
