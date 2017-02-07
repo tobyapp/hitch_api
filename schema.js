@@ -66,5 +66,5 @@ function findUser(callback) {
   });
 };
 
-exports.fundUser = findUser;
+exports.findUser = findUser;
 exports.createUser = createUser;
