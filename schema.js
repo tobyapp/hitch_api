@@ -13,17 +13,17 @@ var userSchema = mongoose.Schema({
   userEducation: String,
   userGender: String,
   userEmailAddress: String,
-  userId: Number,
+  // userId: Number,
   updatedAt: { type: Date, default: Date.now},
 });
 
-ObjectId.prototype.auto = function(turnOn) {
-  if (turnOn) {
-    this.default(defaultId);
-    this.set(resetId);
-  }
-  return this;
-};
+// ObjectId.prototype.auto = function(turnOn) {
+//   if (turnOn) {
+//     this.default(defaultId);
+//     this.set(resetId);
+//   }
+//   return this;
+// };
 
 var User = mongoose.model('User', userSchema) ;
 
