@@ -24,3 +24,16 @@ ObjectId.prototype.auto = function(turnOn) {
   }
   return this;
 };
+
+var User = mongoose.model('User', userSchema) ;
+
+console.log("test : " + User);
+
+var toby = new User({userName: 'Toby Applegate',
+                    userAge: 24,
+                    userEducation: 'University Of Portsmouth',
+                    userGender: 'Male',
+                    userEmailAddress: 'up661724@myport.ac.uk',
+                  });
+
+console.log('toby : ' + toby);
