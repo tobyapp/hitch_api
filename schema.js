@@ -38,7 +38,7 @@ toby.save(function (error, toby) {
   }
 });
 
-fucntion findUser(user) {
+function findUser(user) {
   User.find(function (error, users) {
     if(error) return console.error(error)
     else {
