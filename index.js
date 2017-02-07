@@ -49,6 +49,7 @@ app.post('/createUser', function(request, response){
 
 
   schema.createUser(request.body, function(error, user) {
+    console.log("in createUser function call")
     if(error) {
       response.status("400").send(error);
       console.log("error in creating user : " + error);

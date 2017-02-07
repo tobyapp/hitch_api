@@ -32,6 +32,7 @@ var User = mongoose.model('User', userSchema) ;
 // });
 
 function createUser(userDetails, callback) {
+  console.log("createUser");
   const user = new User({userName: userDetails.userName,
                       userAge: userDetails.userAge,
                       userEducation: userDetails.userEducation,
@@ -40,6 +41,7 @@ function createUser(userDetails, callback) {
                     });
 
   saveUser(user, function(error, user) {
+    console.console.log("in saveUser fuction call from createUser");
     if(error) {
       callback(error);
     } else {
@@ -51,6 +53,7 @@ function createUser(userDetails, callback) {
 }
 
 function saveUser(user, callback) {
+  console.log("saveUser");
   user.save(function (error, user) {
     if(error) callback(error);
     else {
@@ -62,7 +65,7 @@ function saveUser(user, callback) {
 
 function findUser(user) {
   User.find(function (error, users) {
-    if(error) return console.error(error)
+    if(error) return console.error(error);
     else {
       return users;
     }
