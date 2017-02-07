@@ -60,8 +60,8 @@ function saveUser(user, callback) {
       callback(error);
     }
     else {
-      callback(null, user);
       console.log("user saved successfully!!!");
+      callback(null, user);
     }
   });
 }

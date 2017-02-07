@@ -51,12 +51,12 @@ app.post('/createUser', function(request, response){
   schema.createUser(request.body, function(error, user) {
     console.log("in createUser function call")
     if(error) {
-      response.status("400").send(error);
       console.log("error in creating user : " + error);
+      response.status("400").send(error);
     } else {
-      response.status("200").send("User created successfully!!");
       console.log("User created successfully!!");
       console.log(user);
+      response.status("200").send("User created successfully!!");
     }
   });
   // schema.findUser(request.)
@@ -71,8 +71,8 @@ app.post('/createUser', function(request, response){
 
 
 
-  console.log("POST called woo!");
-  response.send("POST called woo!");
+  // console.log("POST called woo!");
+  // response.send("POST called woo!");
 
 });
 
