@@ -1,11 +1,13 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test')
+#!/usr/bin/env nodejs
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log("connected to database successfully!");
-});
+var mongoose = require('mongoose');
+// mongoose.connect('mongodb://localhost/test')
+//
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   console.log("connected to database successfully!");
+// });
 
 var userSchema = mongoose.Schema({
   userName: String,
@@ -15,14 +17,6 @@ var userSchema = mongoose.Schema({
   userEmailAddress: String,
   updatedAt: { type: Date, default: Date.now},
 });
-
-// ObjectId.prototype.auto = function(turnOn) {
-//   if (turnOn) {
-//     this.default(defaultId);
-//     this.set(resetId);
-//   }
-//   return this;
-// };
 
 var User = mongoose.model('User', userSchema) ;
 
@@ -43,3 +37,12 @@ toby.save(function (error, toby) {
     console.log("saved to mongoDB successfully!")
   }
 });
+
+fucntion findUser(user) {
+  user.find(function (error, users) {
+    if(error) return console.error(error)
+    else {
+      return users;
+    }
+  });
+};
