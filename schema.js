@@ -24,12 +24,12 @@ var User = mongoose.model('User', userSchema) ;
 
 // console.log('toby : ' + toby);
 
-toby.save(function (error, toby) {
-  if (error) return console.error(error);
-  else {
-    console.log("saved to mongoDB successfully!")
-  }
-});
+// toby.save(function (error, toby) {
+//   if (error) return console.error(error);
+//   else {
+//     console.log("saved to mongoDB successfully!")
+//   }
+// });
 
 function createUser(userDetails, callback) {
   const user = new User({userName: userDetails.userName,
