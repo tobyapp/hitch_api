@@ -22,7 +22,7 @@ var database = 'test';
 var mongoPort = 27017;
 
 var mongoClient = new MongoClient(new Server(mongoHost, mongoPort)); //B
-var url = 'mongodb://' + mongoHost + '/' + database + ':' + mongoPort
+var url = 'mongodb://' + mongoHost + ':' + mongoPort
 
 mongoClient.connect(url, function(err, db) {
 	if (err) {
@@ -38,4 +38,8 @@ app.get('/', function(request, response){
   // schema.findUser(request.)
   res.send("GET called")
 
+});
+
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
 });
