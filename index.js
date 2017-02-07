@@ -7,7 +7,7 @@ const assert = require('assert');
 
 const MongoClient = require('mongodb').MongoClient;
 const Server = require('mongodb').Server;
-const Schema = require('./schema');
+const schema = require('./schema');
 
 var app = express();
 app.set('port', process.env.PORT || 3000);
@@ -35,7 +35,7 @@ mongoClient.connect(url, function(err, db) {
 
 app.get('/', function(request, response){
   console.log("request.params : " + request.params)
-  // Schema.findUser(request.)
+  // schema.findUser(request.)
   res.send("GET called")
 
 });
