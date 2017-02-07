@@ -53,7 +53,7 @@ function createUser(userDetails, callback) {
 }
 
 function saveUser(user, callback) {
-  console.log("saveUser : " + callback);
+  console.log("saveUser");
   user.save(function (error, user) {
     if(error) {
       console.log("error with saving : " + error);
