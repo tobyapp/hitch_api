@@ -46,37 +46,17 @@ app.get('/getUsers', function(request, response) {
 });
 
 app.put('/updateUser', function(request, response) {
-  schema.findUser(function(error, user) {
+  schema.updateUser(request.body.userId, request.body, function(error, user) {
     if(error) {
-      console.log("Users not found : " + error);
+      console.log("Error updating doc : " + error);
       response.status("400").send(error);
     } else {
-
-      // for(var attributename in request.body){
-      //   console.log("");
-      //     console.log(attributename+": "+request.body[attributename]);
-      //     console.log("");
-      // }
-      //
-      // var keys = Object.keys( request.body );
-      // for( var i = 0,length = keys.length; i < length; i++ ) {
-      //   console.log("obj[ keys[ i ] ] : " + request.body[ keys[ i ] ]);
-      // }
-
-      schema.updateUser(request.body.userId, request.body, function(error, user) {
-        if(error) {
-          console.log("Error updating doc : " + error);
-          response.status("400").send(error);
-        } else {
-          console.log("User successfully updated!");
-          response.writeHead(200, { 'Content-Type' : 'application/json' });
-          response.write(JSON.stringify(user));
-          response.end()
-        }
-      });
+      console.log("User successfully updated!");
+      response.writeHead(200, { 'Content-Type' : 'application/json' });
+      response.write(JSON.stringify(user));
+      response.end()
     }
-  })
-
+  });
 });
 
 http.createServer(app).listen(app.get('port'), function(){

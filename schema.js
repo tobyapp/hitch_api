@@ -67,14 +67,9 @@ function findUser(callback) {
 function updateUser(id, userDetails, callback) {
   const options = {new : true};
   var paramsDict = {};
-  console.log("FOR LOOP FOR ATTRIBUTES");
   for(var attributeName in userDetails){
     if(attributeName != 'userId') {
       paramsDict[attributeName] = userDetails[attributeName];
-      //console.log(paramsDict);
-      //console.log(attributename+": "+request.body[attributename]);
-    }
-
   }
 
   User.findByIdAndUpdate(id,
@@ -84,12 +79,6 @@ function updateUser(id, userDetails, callback) {
     if(error) {
       callback(error);
     } else {
-      console.log("");
-      console.log("id : " + id);
-      console.log("userDetails : " + userDetails);
-      console.log("options : " + options);
-      console.log("document : " + document);
-      console.log("");
       callback(null, document);
     }
   });
