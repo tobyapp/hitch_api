@@ -64,10 +64,10 @@ function findUser(callback) {
   });
 };
 
-function updateUser(user, params, callback) {
+function updateUser(id, userDetails, callback) {
   const options = {new : true};
-  user.findOneAndUpdate({_id : user._id},
-                        {$set:{params}},
+  User.findByIdAndUpdate(id,
+                        {$set:{userDetails}},
                         options,
                         function(error, document) {
     if(error) {
