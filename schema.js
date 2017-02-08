@@ -1,12 +1,13 @@
 #!/usr/bin/env nodejs
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/users')
+const url = 'mongodb://localhost/users';
+mongoose.connect(url)
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log("connected to database successfully!");
+  console.log("connected to " + url +" successfully!");
 });
 
 var userSchema = mongoose.Schema({
@@ -50,10 +51,9 @@ function saveUser(user, callback) {
   });
 }
 
-function findUser(callback) {
+function getUsers(callback) {
   User.find(function (error, users) {
     if(error) {
-      console.log("Users not found : " + error);
       callback(error);
     }
     else {
@@ -80,8 +80,20 @@ function updateUser(id, userDetails, callback) {
       callback(null, document);
     }
   });
+};
+
+function findUser(id, callback) {
+  User.findById(id, function(error, doc) {
+    if(error) {
+      callback(error);
+    }
+    else {
+      callback(null, doc);
+    }
+  });
 }
 
 exports.updateUser = updateUser;
+exports.getUsers = getUsers;
 exports.findUser = findUser;
 exports.createUser = createUser;

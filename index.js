@@ -32,7 +32,21 @@ app.post('/createUser', function(request, response){
 });
 
 app.get('/getUsers', function(request, response) {
-  schema.findUser(function(error, users) {
+  schema.getUsers(function(error, users) {
+    if(error) {
+      console.log("Users not found : " + error);
+      response.status("400").send(error);
+    } else {
+      console.log("User found successfully!!");
+      response.writeHead(200, { 'Content-Type' : 'application/json' });
+      response.write(JSON.stringify(users));
+      response.end()
+    }
+  })
+});
+
+pp.put('/findUser', function(request, response) {
+  schema.findUser(request.body.userId, function(error, users) {
     if(error) {
       console.log("Users not found : " + error);
       response.status("400").send(error);
