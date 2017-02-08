@@ -67,7 +67,7 @@ function findUser(callback) {
 function updateUser(id, userDetails, callback) {
   const options = {new : true};
   User.findByIdAndUpdate(id,
-                        {$set:{userDetails}},
+                        {$set:{userName: userDetails.userName}},
                         options,
                         function(error, document) {
     if(error) {
