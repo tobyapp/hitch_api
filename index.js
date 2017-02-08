@@ -51,6 +51,11 @@ app.put('/updateUser', function(request, response) {
       console.log("Users not found : " + error);
       response.status("400").send(error);
     } else {
+
+      for(var attributename in request.body){
+          console.log(attributename+": "+request.body[attributename]);
+      }
+
       schema.updateUser(request.body.userId, request.body, function(error, user) {
         if(error) {
           console.log("Error updating doc : " + error);
