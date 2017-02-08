@@ -1,12 +1,13 @@
 #!/usr/bin/env nodejs
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/users')
+const url = 'mongodb://localhost/users';
+mongoose.connect(url)
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log("connected to database successfully!");
+  console.log("connected to " + url +" successfully!");
 });
 
 var userSchema = mongoose.Schema({
@@ -34,10 +35,8 @@ function createUser(userDetails, callback) {
     } else {
       callback(null, user);
     }
-
   });
-
-}
+};
 
 function saveUser(user, callback) {
   user.save(function (error, user) {
@@ -52,10 +51,9 @@ function saveUser(user, callback) {
   });
 }
 
-function findUser(callback) {
+function getUsers(callback) {
   User.find(function (error, users) {
     if(error) {
-      console.log("Users not found : " + error);
       callback(error);
     }
     else {
@@ -64,5 +62,50 @@ function findUser(callback) {
   });
 };
 
+function updateUser(id, userDetails, callback) {
+  const options = {new : true};
+  var paramsDict = {};
+  for(var attributeName in userDetails){
+    if(attributeName != 'userId') {
+      paramsDict[attributeName] = userDetails[attributeName];
+    }
+  };
+  User.findByIdAndUpdate(id,
+                        {$set:paramsDict},
+                        options,
+                        function(error, document) {
+    if(error) {
+      callback(error);
+    } else {
+      callback(null, document);
+    }
+  });
+};
+
+function findUser(id, callback) {
+  User.findById(id, function(error, doc) {
+    if(error) {
+      callback(error);
+    }
+    else {
+      callback(null, doc);
+    }
+  });
+};
+
+function deleteUser(id, callback) {
+  User.findByIdAndRemove(id, function(error, user) {
+    if(error) {
+      callback(error);
+    }
+    else {
+      callback(null, user);
+    }
+  });
+}
+
+exports.deleteUser = deleteUser;
+exports.updateUser = updateUser;
+exports.getUsers = getUsers;
 exports.findUser = findUser;
 exports.createUser = createUser;
