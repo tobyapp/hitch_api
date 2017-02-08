@@ -28,7 +28,7 @@ Retrieve all users from MongoDB using a GET request
 ###PUT /findUser  
 http://localhost:3000/findUser
 
-Retrieve a user using a PUT reuqest with a JSON file containg the 'userId' in the body of the request in the form:
+Retrieve a user using a PUT request with a JSON file containing the 'userId' in the body of the request in the form:
 
 { "userId" : "58999b70e272b808bf1ae61b" }
 
