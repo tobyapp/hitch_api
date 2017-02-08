@@ -4,9 +4,6 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const assert = require('assert');
-
-const MongoClient = require('mongodb').MongoClient;
-const Server = require('mongodb').Server;
 const schema = require('./schema');
 
 var app = express();
@@ -21,42 +18,75 @@ app.use(bodyParser.urlencoded({ //parse test as URL encoded data
 
 app.use(bodyParser.json());
 
-var mongoHost = 'localHost';
-var database = 'test';
-var mongoPort = 27017;
+app.post('/createUser', function(request, response){
 
-var mongoClient = new MongoClient(new Server(mongoHost, mongoPort)); //B
-var url = 'mongodb://' + mongoHost + ':' + mongoPort
-
-mongoClient.connect(url, function(err, db) {
-	if (err) {
-		(console.error("Cannot connect for some reason"));
-		process.exit(1);
-	}
-	assert.equal(null, err);
-	console.log("Conncected correctly to server");
+  schema.createUser(request.body, function(error, user) {
+    if(error) {
+      console.log("error in creating user : " + error);
+      response.status("400").send(error);
+    } else {
+      console.log("User created successfully!!");
+      response.writeHead(200, { 'Content-Type' : 'application/json' });
+      response.write(JSON.stringify(user));
+      response.end()
+    }
+  });
 });
 
-app.post('/', function(request, response){
-  console.log("request : " + request)
-  console.log("url : " + request.url)
-  console.log("request.headers : " + request.headers)
-  console.log("request.params : " + request.params);
-  // schema.findUser(request.)
+app.get('/getUsers', function(request, response) {
+  schema.getUsers(function(error, users) {
+    if(error) {
+      console.log("Users not found : " + error);
+      response.status("400").send(error);
+    } else {
+      console.log("User found successfully!!");
+      response.writeHead(200, { 'Content-Type' : 'application/json' });
+      response.write(JSON.stringify(users));
+      response.end()
+    }
+  })
+});
 
-  var body = [];
-  request.on('data', function(chunk) {
-    body.push(chunk);
-  }).on('end', function() {
-    body = Buffer.concat(body).toString();
-    console.log("body : " + body);
+app.put('/findUser', function(request, response) {
+  schema.findUser(request.body.userId, function(error, users) {
+    if(error) {
+      console.log("Users not found : " + error);
+      response.status("400").send(error);
+    } else {
+      console.log("User found successfully!!");
+      response.writeHead(200, { 'Content-Type' : 'application/json' });
+      response.write(JSON.stringify(users));
+      response.end()
+    }
+  })
+});
+
+app.put('/updateUser', function(request, response) {
+  schema.updateUser(request.body.userId, request.body, function(error, user) {
+    if(error) {
+      console.log("Error updating doc : " + error);
+      response.status("400").send(error);
+    } else {
+      console.log("User successfully updated!");
+      response.writeHead(200, { 'Content-Type' : 'application/json' });
+      response.write(JSON.stringify(user));
+      response.end()
+    }
   });
+});
 
-  console.log('title : ' + request.body.title)
-
-  console.log("POST called woo!");
-  response.send("POST called woo!");
-
+app.delete('/deleteUser', function(request, response) {
+  schema.deleteUser(request.body.userId, function(error, user) {
+    if(error) {
+      console.log("Error deleting doc : " + error);
+      response.status("400").send(error);
+    } else {
+      console.log("User successfully updated!");
+      response.writeHead(200, { 'Content-Type' : 'application/json' });
+      response.write(JSON.stringify(user));
+      response.end("User successfully deleted!");
+    }
+  })
 });
 
 http.createServer(app).listen(app.get('port'), function(){

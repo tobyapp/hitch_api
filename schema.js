@@ -1,13 +1,14 @@
 #!/usr/bin/env nodejs
 
 var mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/test')
-//
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//   console.log("connected to database successfully!");
-// });
+const url = 'mongodb://localhost/users';
+mongoose.connect(url)
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("connected to " + url +" successfully!");
+});
 
 var userSchema = mongoose.Schema({
   userName: String,
@@ -20,31 +21,91 @@ var userSchema = mongoose.Schema({
 
 var User = mongoose.model('User', userSchema) ;
 
-console.log("test : " + User);
+function createUser(userDetails, callback) {
+  const user = new User({userName: userDetails.userName,
+                      userAge: userDetails.userAge,
+                      userEducation: userDetails.userEducation,
+                      userGender: userDetails.userGender,
+                      userEmailAddress: userDetails.userEmailAddress,
+                    });
 
-var toby = new User({userName: 'Toby Applegate',
-                    userAge: 24,
-                    userEducation: 'University Of Portsmouth',
-                    userGender: 'Male',
-                    userEmailAddress: 'up661724@myport.ac.uk',
-                  });
-
-console.log('toby : ' + toby);
-
-toby.save(function (error, toby) {
-  if (error) return console.error(error);
-  else {
-    console.log("saved to mongoDB successfully!")
-  }
-});
-
-function findUser(user) {
-  User.find(function (error, users) {
-    if(error) return console.error(error)
-    else {
-      return users;
+  saveUser(user, function(error, user) {
+    if(error) {
+      callback(error);
+    } else {
+      callback(null, user);
     }
   });
 };
 
-exports.fundUser = findUser;
+function saveUser(user, callback) {
+  user.save(function (error, user) {
+    if(error) {
+      console.log("error with saving : " + error);
+      callback(error);
+    }
+    else {
+      console.log("User saved successfully!!");
+      callback(null, user);
+    }
+  });
+}
+
+function getUsers(callback) {
+  User.find(function (error, users) {
+    if(error) {
+      callback(error);
+    }
+    else {
+      callback(null, users);
+    }
+  });
+};
+
+function updateUser(id, userDetails, callback) {
+  const options = {new : true};
+  var paramsDict = {};
+  for(var attributeName in userDetails){
+    if(attributeName != 'userId') {
+      paramsDict[attributeName] = userDetails[attributeName];
+    }
+  };
+  User.findByIdAndUpdate(id,
+                        {$set:paramsDict},
+                        options,
+                        function(error, document) {
+    if(error) {
+      callback(error);
+    } else {
+      callback(null, document);
+    }
+  });
+};
+
+function findUser(id, callback) {
+  User.findById(id, function(error, doc) {
+    if(error) {
+      callback(error);
+    }
+    else {
+      callback(null, doc);
+    }
+  });
+};
+
+function deleteUser(id, callback) {
+  User.findByIdAndRemove(id, function(error, user) {
+    if(error) {
+      callback(error);
+    }
+    else {
+      callback(null, user);
+    }
+  });
+}
+
+exports.deleteUser = deleteUser;
+exports.updateUser = updateUser;
+exports.getUsers = getUsers;
+exports.findUser = findUser;
+exports.createUser = createUser;
