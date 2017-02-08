@@ -34,10 +34,8 @@ function createUser(userDetails, callback) {
     } else {
       callback(null, user);
     }
-
   });
-
-}
+};
 
 function saveUser(user, callback) {
   user.save(function (error, user) {
