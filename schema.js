@@ -73,6 +73,12 @@ function updateUser(id, userDetails, callback) {
     if(error) {
       callback(error);
     } else {
+      conosle.log("");
+      console.log("id : " + id);
+      console.log("userDetails : " + userDetails);
+      console.log("options : " + options);
+      console.log("document : " + document);
+      console.log("");
       callback(null, document);
     }
   });
