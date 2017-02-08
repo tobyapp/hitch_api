@@ -71,7 +71,6 @@ function updateUser(id, userDetails, callback) {
     if(attributeName != 'userId') {
       paramsDict[attributeName] = userDetails[attributeName];
   }
-
   User.findByIdAndUpdate(id,
                         {$set:paramsDict},
                         options,
@@ -82,7 +81,8 @@ function updateUser(id, userDetails, callback) {
       callback(null, document);
     }
   });
-};
+  };
+}
 
 exports.updateUser = updateUser;
 exports.findUser = findUser;
