@@ -29,10 +29,9 @@ app.post('/createUser', function(request, response){
       response.status("200").send("User created successfully!!");
     }
   });
-
 });
 
-app.get('/', function(request, response) {
+app.get('/getUsers', function(request, response) {
   schema.findUser(function(error, users) {
     if(error) {
       console.log("Users not found : " + error);
@@ -42,6 +41,27 @@ app.get('/', function(request, response) {
       response.writeHead(200, { 'Content-Type' : 'application/json' });
       response.write(JSON.stringify(users));
       response.end()
+    }
+  })
+});
+
+app.put('/updateUser', function(request, response) {
+  schema.findUser(function(error, user) {
+    if(error) {
+      console.log("Users not found : " + error);
+      response.status("400").send(error);
+    } else {
+      schema.updateUser(user, request.body, fucntion(error, user) {
+        if(error) {
+          console.log("Error updating doc : " + error);
+          response.status("400").send(error);
+        } else {
+          console.log("User successfully updated!");
+          response.writeHead(200, { 'Content-Type' : 'application/json' });
+          response.write(JSON.stringify(user));
+          response.end()
+        }
+      });
     }
   })
 

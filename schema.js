@@ -64,5 +64,20 @@ function findUser(callback) {
   });
 };
 
+function updateUser(user, params, callback) {
+  const options = {new : true};
+  user.findOneAndUpdate({_id : user._id},
+                        {$set:{params}},
+                        options,
+                        function(error, document) {
+    if(error) {
+      callback(error);
+    } else {
+      callback(null, document);
+    }
+  });
+};
+
+exports.updateUser = updateUser;
 exports.findUser = findUser;
 exports.createUser = createUser;
