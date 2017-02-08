@@ -53,7 +53,14 @@ app.put('/updateUser', function(request, response) {
     } else {
 
       for(var attributename in request.body){
+        console.log("");
           console.log(attributename+": "+request.body[attributename]);
+          console.log("");
+      }
+
+      var keys = Object.keys( request.body );
+      for( var i = 0,length = keys.length; i < length; i++ ) {
+        console.log("obj[ keys[ i ] ] : " + obj[ keys[ i ] ]);
       }
 
       schema.updateUser(request.body.userId, request.body, function(error, user) {
