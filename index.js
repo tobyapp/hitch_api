@@ -76,15 +76,17 @@ app.put('/updateUser', function(request, response) {
 });
 
 app.delete('/deleteUser', function(request, response) {
-  schema.deleteUser(request.body.userId, function(error, object) {
+  schema.deleteUser(request.body.userId, function(error, user) {
     if(error) {
       console.log("Error deleting doc : " + error);
       response.status("400").send(error);
     } else {
-      response.status("400").send("done");
+      console.log("User successfully updated!");
+      response.writeHead(200, { 'Content-Type' : 'application/json' });
+      response.write(JSON.stringify(user));
+      response.end("User successfully deleted!");
     }
   })
-
 });
 
 http.createServer(app).listen(app.get('port'), function(){

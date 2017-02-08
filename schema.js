@@ -94,13 +94,12 @@ function findUser(id, callback) {
 };
 
 function deleteUser(id, callback) {
-  User.findByIdAndRemove(id, function(error, object) {
+  User.findByIdAndRemove(id, function(error, user) {
     if(error) {
       callback(error);
     }
     else {
-      console.log("object : " + object);
-      callback(null, object);
+      callback(null, user);
     }
   });
 }
