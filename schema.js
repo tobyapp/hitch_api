@@ -66,6 +66,17 @@ function findUser(callback) {
 
 function updateUser(id, userDetails, callback) {
   const options = {new : true};
+  var paramsDict = {};
+  console.log("FOR LOOP FOR ATTRIBUTES");
+  for(var attributename in request.body){
+    if(attributename != "id") {
+      paramsDict[attributename] = request.body[attributename];
+      console.log(paramsDict);
+        //console.log(attributename+": "+request.body[attributename]);
+    }
+
+  }
+
   User.findByIdAndUpdate(id,
                         {$set:{userName: userDetails.userName}},
                         options,
