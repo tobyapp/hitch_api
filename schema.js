@@ -73,7 +73,7 @@ function updateUser(id, userDetails, callback) {
     if(error) {
       callback(error);
     } else {
-      conosle.log("");
+      console.log("");
       console.log("id : " + id);
       console.log("userDetails : " + userDetails);
       console.log("options : " + options);
