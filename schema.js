@@ -68,9 +68,9 @@ function updateUser(id, userDetails, callback) {
   const options = {new : true};
   var paramsDict = {};
   console.log("FOR LOOP FOR ATTRIBUTES");
-  for(var attributename in request.body){
-    if(attributename != "id") {
-      paramsDict[attributename] = request.body[attributename];
+  for(var attributeName in userDetails){
+    if(attributeName != "id") {
+      paramsDict[attributeName] = userDetails[attributeName];
       console.log(paramsDict);
         //console.log(attributename+": "+request.body[attributename]);
     }
