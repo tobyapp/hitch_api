@@ -45,7 +45,7 @@ app.get('/getUsers', function(request, response) {
   })
 });
 
-pp.put('/findUser', function(request, response) {
+app.put('/findUser', function(request, response) {
   schema.findUser(request.body.userId, function(error, users) {
     if(error) {
       console.log("Users not found : " + error);
