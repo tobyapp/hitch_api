@@ -91,8 +91,21 @@ function findUser(id, callback) {
       callback(null, doc);
     }
   });
+};
+
+function deleteUser(id, callback) {
+  User.findByIdAndRemove(id, function(error, object) {
+    if(error) {
+      callback(error);
+    }
+    else {
+      console.log("object : " + object);
+      callback(null, object);
+    }
+  });
 }
 
+exports.deleteUser = deleteUser;
 exports.updateUser = updateUser;
 exports.getUsers = getUsers;
 exports.findUser = findUser;

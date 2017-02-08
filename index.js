@@ -26,7 +26,9 @@ app.post('/createUser', function(request, response){
       response.status("400").send(error);
     } else {
       console.log("User created successfully!!");
-      response.status("200").send("User created successfully!!");
+      response.writeHead(200, { 'Content-Type' : 'application/json' });
+      response.write(JSON.stringify(user));
+      response.end()
     }
   });
 });
@@ -71,6 +73,18 @@ app.put('/updateUser', function(request, response) {
       response.end()
     }
   });
+});
+
+app.delete('/deleteUser', function(request, response) {
+  schema.deleteUser(request.body.userId, function(error, object) {
+    if(error) {
+      console.log("Error deleting doc : " + error);
+      response.status("400").send(error);
+    } else {
+      response.status("400").send("done");
+    }
+  })
+
 });
 
 http.createServer(app).listen(app.get('port'), function(){
